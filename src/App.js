@@ -34,7 +34,7 @@ function App() {
     })
   },[])
   return (
-    <main>
+    <main className='flex justify-center'>
       <div className='h-[450px] w-[450px] bg-gray-100 rounded flex justify-center items-center'>
         <div className=' flex flex-col justify-center w-5/6'>
           <form className='gap-y-4 flex flex-col justify-center'>
