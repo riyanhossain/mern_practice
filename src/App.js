@@ -66,7 +66,7 @@ function App() {
       setUserInfo(data)
       console.log(data);
     })
-  },[])
+  })
   const deleteUserInfo = (id) =>{
     fetch(`http://localhost:5000/delete/${id}`,{
       method: 'DELETE',
@@ -125,6 +125,7 @@ function App() {
               label="Join date"
               value={value}
               minDate={new Date('2022-01-01')}
+              inputFormat="dd.MM.yyyy"
               onChange={(newValue) => {
                 setValue(newValue)
                 setUser({...user,['date']:newValue})
