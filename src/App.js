@@ -147,7 +147,6 @@ function App() {
         <th className='border-2 border-gray-400 bg-sky-500'>Date</th>
         <th className='border-2 border-gray-400 bg-sky-500'>Action</th>
         </tr>
-
         {
           userInfo.map(data=><tr className='bg-sky-200'>
             <td className='border-2 border-gray-400 p-3'>{data.name}</td>
