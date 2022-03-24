@@ -49,6 +49,7 @@ function App() {
     setUser({...user, [e.target.name]:e.target.value})
     console.log(user);
   }
+
   const handleClick =() =>{
     fetch('http://localhost:5000/userInfo', {
       method: 'POST',
@@ -66,7 +67,7 @@ function App() {
       setUserInfo(data)
       console.log(data);
     })
-  })
+  },[])
   const deleteUserInfo = (id) =>{
     fetch(`http://localhost:5000/delete/${id}`,{
       method: 'DELETE',
@@ -92,6 +93,11 @@ function App() {
     console.log(updateUser);
 
   }
+  const handleModalSelect = (e) =>{
+    console.log(e.target.name);
+    setUpdateUser({...updateUser, [e.target.name]:e.target.value})
+    console.log(updateUser);
+  }
   const updateUserInfo = (id) =>{
     fetch(`http://localhost:5000/update/${id}`,{
       method: 'PATCH',
@@ -102,7 +108,30 @@ function App() {
       return res.json()
     }) 
     .then(data => console.log(data))
-    
+  }
+  const [selectOp,setSelectOp]=useState(
+    {}
+  )
+  const selectedGender= (gender) => {
+    if(gender==='Male')
+    setSelectOp({
+      male:true,
+      female:false,
+      others:false
+    })
+    else if(gender==='Female')
+    setSelectOp({
+      male:false,
+      female:true,
+      others:false
+    })
+    else
+    setSelectOp({
+      male:false,
+      female:false,
+      others:true
+    })
+
   }
   return (
     <main className='flex justify-center flex-col items-center'>
@@ -114,8 +143,8 @@ function App() {
             <input placeholder='Email' type="email" name='email' className='bg-gray-200 p-2' value={user.email} onChange={handleInputs} required/>
             <input placeholder='Salary' type="number" name='salary' className='bg-gray-200 p-2' value={user.salary} onChange={handleInputs} required/>
             <select name="gender" id=""  className='bg-gray-200 p-2' onChange={handleSelect}>
-              <option type="text" value='Not spcified' name='gender' >Gender</option>
-              <option type="text" value='Male' name='gender' >Male</option>
+              <option type="text" value='Not Specified' name='gender'>Choose gender</option>           
+              <option type="text" value='Male' name='gender'>Male</option>
               <option type="text" value='Female' name='gender' >Female</option>
               <option type="text" value='Others' name='gender'>Others</option>
             </select>
@@ -154,7 +183,7 @@ function App() {
             <td className='border-2 border-gray-400 p-3'>{data.salary}</td>
             <td className='border-2 border-gray-400 p-3'>{data.gender}</td>
             <td className='border-2 border-gray-400 p-3'>{data.date}</td>
-            <td className=''><button className='bg-amber-400 p-1 pl-4 pr-4 w-full text-white' onClick={()=>{handleOpen(); userInfoUpdate(data._id)}} >Update</button><br/>
+            <td className=''><button className='bg-amber-400 p-1 pl-4 pr-4 w-full text-white' onClick={()=>{handleOpen(); userInfoUpdate(data._id);selectedGender(data.gender)}} >Update</button><br/>
             <button className='bg-red-600 p-1 w-full text-white' onClick={()=>deleteUserInfo(data._id)}>Delete</button></td>
           </tr>)
         }
@@ -173,6 +202,11 @@ function App() {
             <input placeholder='Name' type="text" name='name' className='bg-gray-200 p-2' value={updateUser.name} onChange={handleModalInputs}/>
             <input placeholder='Email' type="email" name='email' className='bg-gray-200 p-2' value={updateUser.email} onChange={handleModalInputs}/>
             <input placeholder='Salary' type="number" name='salary' className='bg-gray-200 p-2' value={updateUser.salary} onChange={handleModalInputs}/>
+            <select name="gender" id=""  className='bg-gray-200 p-2' onChange={handleModalSelect}>
+              <option type="text" value='Male' name='gender' selected={selectOp.male}>Male</option>
+              <option type="text" value='Female' name='gender' selected={selectOp.female}>Female</option>
+              <option type="text" value='Others' name='gender'selected={selectOp.others}>Others</option>
+            </select>
             <button type='submit' className='p-2 bg-blue-600 rounded text-white'onClick={() => updateUserInfo(updateUser._id)} >Submit</button>
           </form>
         </div>
