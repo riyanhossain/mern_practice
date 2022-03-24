@@ -137,7 +137,7 @@ function App() {
     <main className='flex justify-center flex-col items-center'>
       <div className='h-[450px] w-[450px] bg-gray-100 rounded flex justify-center items-center'>
         <div className=' flex flex-col justify-center w-5/6'>
-          <form className='gap-y-4 flex flex-col justify-center'>
+          <form onSubmit={handleClick} className='gap-y-4 flex flex-col justify-center'>
             <p className='font-bold'>Give ur info</p>
             <input placeholder='Name' type="text" name='name' className='bg-gray-200 p-2' value={user.name} onChange={handleInputs} required/>
             <input placeholder='Email' type="email" name='email' className='bg-gray-200 p-2' value={user.email} onChange={handleInputs} required/>
@@ -160,10 +160,11 @@ function App() {
                 setUser({...user,['date']:newValue})
               }}
               renderInput={(params) => <TextField {...params} />}
+              
             />
             </Stack>
           </LocalizationProvider>
-            <button type='submit' className='p-2 bg-blue-600 rounded text-white' onClick={handleClick}>Submit</button>
+            <button type='submit' className='p-2 bg-blue-600 rounded text-white'>Submit</button>
           </form>
         </div> 
       </div>
@@ -197,17 +198,17 @@ function App() {
         <Box sx={style}>
         <div className='h-[450px] w-[450px] bg-gray-100 rounded flex justify-center items-center'>
         <div className=' flex flex-col justify-center w-5/6'>
-          <form className='gap-y-4 flex flex-col justify-center'>
+          <form onSubmit={() => updateUserInfo(updateUser._id)} className='gap-y-4 flex flex-col justify-center'>
             <p className='font-bold'>Give ur info</p>
             <input placeholder='Name' type="text" name='name' className='bg-gray-200 p-2' value={updateUser.name} onChange={handleModalInputs}/>
             <input placeholder='Email' type="email" name='email' className='bg-gray-200 p-2' value={updateUser.email} onChange={handleModalInputs}/>
             <input placeholder='Salary' type="number" name='salary' className='bg-gray-200 p-2' value={updateUser.salary} onChange={handleModalInputs}/>
-            <select name="gender" id=""  className='bg-gray-200 p-2' onChange={handleModalSelect}>
+            <select name="gender" id=""  className='bg-gray-200 p-2' onChange={handleModalSelect} required>
               <option type="text" value='Male' name='gender' selected={selectOp.male}>Male</option>
               <option type="text" value='Female' name='gender' selected={selectOp.female}>Female</option>
               <option type="text" value='Others' name='gender'selected={selectOp.others}>Others</option>
             </select>
-            <button type='submit' className='p-2 bg-blue-600 rounded text-white'onClick={() => updateUserInfo(updateUser._id)} >Submit</button>
+            <button type='submit' className='p-2 bg-blue-600 rounded text-white' >Submit</button>
           </form>
         </div>
       </div>
