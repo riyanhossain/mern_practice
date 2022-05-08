@@ -133,6 +133,12 @@ function App() {
     })
 
   }
+
+  const dateFormateConverter = (ISO) =>{
+    const d = new Date(ISO).toDateString()
+    return d;
+
+  }
   return (
     <main className='flex justify-center flex-col items-center'>
       <div className='h-[450px] w-[450px] bg-gray-100 rounded flex justify-center items-center'>
@@ -156,7 +162,7 @@ function App() {
               minDate={new Date('2022-01-01')}
               inputFormat="dd.MM.yyyy"
               onChange={(newValue) => {
-                setValue(newValue)
+                setValue(newValue);
                 setUser({...user,['date']:newValue})
               }}
               renderInput={(params) => <TextField {...params} />}
@@ -178,12 +184,14 @@ function App() {
         <th className='border-2 border-gray-400 bg-sky-500'>Action</th>
         </tr>
         {
-          userInfo.map(data=><tr className='bg-sky-200'>
+          userInfo.map(data=>
+          <tr className='bg-sky-200'>
             <td className='border-2 border-gray-400 p-3'>{data.name}</td>
             <td className='border-2 border-gray-400 p-3'>{data.email}</td>
             <td className='border-2 border-gray-400 p-3'>{data.salary}</td>
             <td className='border-2 border-gray-400 p-3'>{data.gender}</td>
-            <td className='border-2 border-gray-400 p-3'>{data.date}</td>
+            
+            <td className='border-2 border-gray-400 p-3'>{dateFormateConverter(data.date)}</td>
             <td className=''><button className='bg-amber-400 p-1 pl-4 pr-4 w-full text-white' onClick={()=>{handleOpen(); userInfoUpdate(data._id);selectedGender(data.gender)}} >Update</button><br/>
             <button className='bg-red-600 p-1 w-full text-white' onClick={()=>deleteUserInfo(data._id)}>Delete</button></td>
           </tr>)
